@@ -164,10 +164,8 @@ def organiza_etapas(projeto, arquivo_projetos):
     with open(arquivo_projetos, 'w') as file:
         file.write(projetos)
     
-    carrega('Salvando alterações', 0.5)
+    carrega('\033[33;1mOrganizando etapas\033[m', 0.5)
     limpa_tela()
-    
-
 
 
 def deleta_etapa(num_etapa, projeto, arquivo_projetos):
@@ -191,7 +189,6 @@ def deleta_etapa(num_etapa, projeto, arquivo_projetos):
 
     sleep(1)
     limpa_tela()
-
 
 
 def modifica_projeto(arquivo_projetos):
@@ -281,5 +278,4 @@ def modifica_projeto(arquivo_projetos):
 
 
 if __name__ == '__main__':
-    # modifica_projeto('projetos.json')
-    organiza_etapas('site', 'projetos.json')
+    modifica_projeto('projetos.json')
