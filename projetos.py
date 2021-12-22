@@ -191,6 +191,42 @@ def deleta_etapa(num_etapa, projeto, arquivo_projetos):
     limpa_tela()
 
 
+def renomeia_projeto(projeto, arquivo_projetos, novo_nome_projeto):
+    with open(arquivo_projetos) as projetos:
+        projetos = json.load(projetos)
+
+    projetos_atualizados = {}
+
+    # Renomeando o projeto
+    projetoAtual = 0
+    outrosProjetos = {}
+
+    for infoProjeto in projetos.values():
+        projetoAtual += 1
+
+        if infoProjeto['nome'] == projeto:
+            for info in infoProjeto.keys():
+                projetos_atualizados[info] = infoProjeto[info] if infoProjeto[info] != projeto else novo_nome_projeto
+        else:
+            for info in infoProjeto.keys():
+                outrosProjetos[info] = infoProjeto[info]
+        
+        projetos_atualizados[f'projeto{projetoAtual}'] = outrosProjetos
+
+    # Salvando alterações
+    with open(arquivo_projetos, 'w') as file:
+        projetos_atualizados = json.dumps(projetos_atualizados, indent=4)
+
+        file.write(projetos_atualizados)
+    
+    carrega('\033[33;1mRenomeando projeto\033[m', 0.5)
+
+    print('\033[32;1mO projeto foi renomeado com sucesso!\033[m')
+
+    sleep(1)
+    limpa_tela()
+            
+
 def modifica_projeto(arquivo_projetos):
     while True:
         nomes_projetos(arquivo_projetos)
@@ -212,7 +248,7 @@ def modifica_projeto(arquivo_projetos):
             'Remover etapa',
             'Renomear projeto',
             'Excluir projeto',
-            'Cancelar modificação',
+            'Cancelar',
             titulo_menu = 'Menu de modificação'.center(42)
         )
 
@@ -267,7 +303,9 @@ def modifica_projeto(arquivo_projetos):
             deleta_etapa(num_etapa, projeto, arquivo_projetos)
             organiza_etapas(projeto, arquivo_projetos)
         case 4:
-            pass
+            nomeNovoProjeto = str(input('Renomear o projeto para: (Nome do projeto) ')).lower()
+
+            renomeia_projeto(projeto, arquivo_projetos, nomeNovoProjeto)
         case 5:
             pass
         case 6:

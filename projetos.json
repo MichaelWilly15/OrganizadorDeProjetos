@@ -1,19 +1,39 @@
 {
+    "nome": "site",
+    "descricao": "Criando um site com html e css puro",
+    "projeto concluido": "nao",
+    "etapas": [
+        {
+            "etapa1": "criar o design do site",
+            "concluida": "sim"
+        },
+        {
+            "etapa2": "criar os arquivos de midias",
+            "concluida": "nao"
+        },
+        {
+            "etapa3": "criar o site",
+            "concluida": "nao"
+        }
+    ],
     "projeto1": {
-        "nome": "site",
-        "descricao": "Criando um site com html e css puro",
+        "nome": "testando",
+        "descricao": "so uma",
         "projeto concluido": "nao",
         "etapas": [
             {
-                "etapa1": "criar o design do site",
-                "concluida": "sim"
-            },
-            {
-                "etapa2": "criar os arquivos de midias",
+                "etapa1": "testar projeto",
                 "concluida": "nao"
-            },
+            }
+        ]
+    },
+    "projeto2": {
+        "nome": "testando",
+        "descricao": "so uma",
+        "projeto concluido": "nao",
+        "etapas": [
             {
-                "etapa3": "criar o site",
+                "etapa1": "testar projeto",
                 "concluida": "nao"
             }
         ]
