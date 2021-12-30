@@ -222,7 +222,46 @@ def renomearProjeto(projeto, nomeNovoProjeto, arquivoDeProjetos):
 
     limpa_tela()
 
-            
+
+def organizaProjetos(arquivoDeProjetos):
+    with open(arquivoDeProjetos) as projetos:
+        projetos = json.load(projetos)
+    
+    projetoAtual = 1
+    todosProjetos = {}
+
+    for info in projetos.values():
+        todosProjetos[f'projeto{projetoAtual}'] = info
+        projetoAtual += 1
+    
+    todosProjetos = json.dumps(todosProjetos, indent=4)
+
+    with open(arquivoDeProjetos, 'w') as file:
+        file.write(todosProjetos)
+    
+    carrega('\033[33;1mOrganizando os projetos\033[m', 0.5)
+
+    print('\033[32;1mProjetos organizados com sucesso!\033[m')
+    sleep(1)
+
+    limpa_tela()
+
+
+def deletaProjeto(projeto, arquivoDeProjetos):
+    with open(arquivoDeProjetos) as projetos:
+        projetos = json.load(projetos)
+
+    todosProjetos = {}
+    projetoAtual = 1
+    
+    for info in projetos.values():
+        if info['nome'] != projeto:
+            todosProjetos[f'projeto{projetoAtual}'] = info
+        
+        projetoAtual += 1
+    
+
+
 
 def modifica_projeto(arquivo_projetos):
     while True:
@@ -313,4 +352,5 @@ def modifica_projeto(arquivo_projetos):
 
 
 if __name__ == '__main__':
-    modifica_projeto('projetos.json')
+    # modifica_projeto('projetos.json')
+    organizaProjetos('projetos.json')

@@ -1,5 +1,5 @@
 {
-    "projeto1" : {
+    "projeto1": {
         "nome": "site",
         "descricao": "Criando um site com html e css puro",
         "projeto concluido": "nao",
@@ -19,7 +19,7 @@
         ]
     },
     "projeto2": {
-        "nome":"teste",
+        "nome": "teste",
         "descricao": "teste",
         "projeto concluido": "nao",
         "etapas": [
