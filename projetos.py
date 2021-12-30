@@ -259,8 +259,13 @@ def deletaProjeto(projeto, arquivoDeProjetos):
             todosProjetos[f'projeto{projetoAtual}'] = info
         
         projetoAtual += 1
-    
 
+    todosProjetos = json.dumps(todosProjetos, indent=4)
+    
+    with open(arquivoDeProjetos, 'w') as file:
+        file.write(todosProjetos)
+
+    organizaProjetos(arquivoDeProjetos)
 
 
 def modifica_projeto(arquivo_projetos):
@@ -343,14 +348,9 @@ def modifica_projeto(arquivo_projetos):
 
             renomearProjeto(projeto, nomeNovoProjeto, arquivo_projetos)
         case 5:
-            pass
+            deletaProjeto(projeto, arquivo_projetos)
         case 6:
             print('\033[33;1mModificação cancelada!\033[m')
             sleep(1)
 
             limpa_tela()
-
-
-if __name__ == '__main__':
-    # modifica_projeto('projetos.json')
-    organizaProjetos('projetos.json')
