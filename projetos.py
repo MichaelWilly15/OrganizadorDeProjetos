@@ -191,40 +191,37 @@ def deleta_etapa(num_etapa, projeto, arquivo_projetos):
     limpa_tela()
 
 
-def renomeia_projeto(projeto, arquivo_projetos, novo_nome_projeto):
-    with open(arquivo_projetos) as projetos:
+def renomearProjeto(projeto, nomeNovoProjeto, arquivoDeProjetos):
+    with open(arquivoDeProjetos) as projetos:
         projetos = json.load(projetos)
-
-    projetos_atualizados = {}
+    
+    todosProjetos = {}
+    projetoTemporario = {}
+    projetoAtual = 1
 
     # Renomeando o projeto
-    projetoAtual = 0
-    outrosProjetos = {}
-
     for infoProjeto in projetos.values():
+        projetoTemporario['nome'] = nomeNovoProjeto if infoProjeto['nome'] == projeto else infoProjeto['nome']
+        projetoTemporario['descricao'] = infoProjeto['descricao']
+        projetoTemporario['projeto concluido'] = infoProjeto['projeto concluido']
+        projetoTemporario['etapas'] = infoProjeto['etapas']
+
+        todosProjetos[f'projeto{projetoAtual}'] = projetoTemporario
+        projetoTemporario = {}
+
         projetoAtual += 1
 
-        if infoProjeto['nome'] == projeto:
-            for info in infoProjeto.keys():
-                projetos_atualizados[info] = infoProjeto[info] if infoProjeto[info] != projeto else novo_nome_projeto
-        else:
-            for info in infoProjeto.keys():
-                outrosProjetos[info] = infoProjeto[info]
-        
-        projetos_atualizados[f'projeto{projetoAtual}'] = outrosProjetos
+    # Salvando as alterações
+    with open(arquivoDeProjetos, 'w') as file:
+        todosProjetos = json.dumps(todosProjetos, indent = 4)
 
-    # Salvando alterações
-    with open(arquivo_projetos, 'w') as file:
-        projetos_atualizados = json.dumps(projetos_atualizados, indent=4)
-
-        file.write(projetos_atualizados)
+        file.write(todosProjetos)
     
     carrega('\033[33;1mRenomeando projeto\033[m', 0.5)
+    print('\033[32;1mProjeto renomeado com sucesso!\033[m')
 
-    print('\033[32;1mO projeto foi renomeado com sucesso!\033[m')
-
-    sleep(1)
     limpa_tela()
+
             
 
 def modifica_projeto(arquivo_projetos):
@@ -304,8 +301,6 @@ def modifica_projeto(arquivo_projetos):
             organiza_etapas(projeto, arquivo_projetos)
         case 4:
             nomeNovoProjeto = str(input('Renomear o projeto para: (Nome do projeto) ')).lower()
-
-            renomeia_projeto(projeto, arquivo_projetos, nomeNovoProjeto)
         case 5:
             pass
         case 6:
@@ -316,4 +311,5 @@ def modifica_projeto(arquivo_projetos):
 
 
 if __name__ == '__main__':
-    modifica_projeto('projetos.json')
+    # modifica_projeto('projetos.json')
+    renomearProjeto('site', 'Projeto renomeado', 'projetos.json')
