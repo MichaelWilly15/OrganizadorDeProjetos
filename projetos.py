@@ -301,6 +301,8 @@ def modifica_projeto(arquivo_projetos):
             organiza_etapas(projeto, arquivo_projetos)
         case 4:
             nomeNovoProjeto = str(input('Renomear o projeto para: (Nome do projeto) ')).lower()
+
+            renomearProjeto(projeto, nomeNovoProjeto, arquivo_projetos)
         case 5:
             pass
         case 6:
@@ -311,5 +313,4 @@ def modifica_projeto(arquivo_projetos):
 
 
 if __name__ == '__main__':
-    # modifica_projeto('projetos.json')
-    renomearProjeto('site', 'Projeto renomeado', 'projetos.json')
+    modifica_projeto('projetos.json')
